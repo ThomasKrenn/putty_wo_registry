@@ -38,14 +38,14 @@ Path for saving configuration can be set via file putty.conf. Current working di
 
 You can use enviroment variables in config (like %SYSTEMROOT%) - string will be expanded via ExpandEnviromentString WinAPI function (user-specific variables are not supported yet).
 
-sessionsuffix and keysuffix are optional, defaults are empty. If set, every file has a suffix as defined (saved sessions via sessionsuffix and ssh host keys via keysuffix). Primary purpose is to avoid "*.com" files from names like ssh.domain.com. Both are limited to 15 characters.
+*sessionsuffix* and *keysuffix* are optional, defaults are empty. If set, every file has a suffix as defined (saved sessions via sessionsuffix and ssh host keys via keysuffix). Primary purpose is to avoid "*.com" files from names like ssh.domain.com. Both are limited to 15 characters.
 Warning: if you already have saved some sessions or ssh host keys and you change these suffixes, you have to manually rename (append them to) all files. The .conf file **must not** contain any spaces.
 
 Jumplist is new feature in Windows 7 supported by PuTTY 0.61. Because this PuTTY should be lightweight, if you do not set a path to a jumplist, none will be created.
 
-When PuTTY is checking ssh host key and it's not found in file but in registry, you can move/copy key to file (or of course do nothing).
+When PuTTY is checking ssh host key and it's not found in file but in registry, you can move/copy key to file (or do nothing).
 
-Pageant loads list of saved sessions from path set in putty.conf, defaults is ./sessions/packedSessionName - it works the same way as PuTTY (including keysuffix setting). 
+Pageant loads a list of saved sessions from the path set in *putty.conf*, the default is ./sessions/packedSessionName - it works the same way as PuTTY (including *keysuffix* setting). 
 
 ## Changed Files
 
