@@ -18,12 +18,11 @@ Below is a screenshot that shows two migrated sessions.
 ![image](./screenshots/migrate_session.png)
 
 
-This PuTTY stores its configuration (sessions, ssh host keys, random seed file path) to file instead of registry. Every session and ssh host key is stored in a separate file. Default paths are (where . represents the directory with the Putty binaries):
+This PuTTY stores its configuration (sessions, ssh host keys, random seed file path) to text files. Every session and ssh host key is stored in a separate file. Default paths are (where . represents the directory with the Putty binaries):
 
     ./sessions/packedSessionName
     ./sshhostkeys/packedHostName
     ./putty.rnd
-
 
 ## putty.conf
 
@@ -49,6 +48,6 @@ When PuTTY is checking ssh host key and it's not found in file but in registry, 
 
 Pageant loads list of saved sessions from path set in putty.conf, defaults is ./sessions/packedSessionName - it works the same way as PuTTY (including keysuffix setting). 
 
-## Changed files
+## Changed Files
 
 The replaced files and a backup of the original files can be found in the folder 'patches'.
