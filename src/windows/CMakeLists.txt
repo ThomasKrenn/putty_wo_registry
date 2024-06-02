@@ -84,6 +84,18 @@ set_target_properties(pageant PROPERTIES
   WIN32_EXECUTABLE ON
   LINK_FLAGS "${LFLAG_MANIFEST_NO}")
 installed_program(pageant)
+#
+# Install the executable (belongs in the "binaries" component)
+#
+install(TARGETS pageant
+        RUNTIME DESTINATION ${PUTTY_BIN_DESTINATION}
+        COMPONENT binaries)
+
+if(CMAKE_HOST_WIN32)
+install(FILES $<TARGET_PDB_FILE:pageant>
+        DESTINATION ${PUTTY_BIN_DESTINATION} OPTIONAL
+        COMPONENT pdb)
+endif()
 
 add_sources_from_current_dir(plink no-jump-list.c nohelp.c plink.rc)
 add_dependencies(plink generated_licence_h)
@@ -111,6 +123,19 @@ set_target_properties(putty PROPERTIES
   WIN32_EXECUTABLE ON
   LINK_FLAGS "${LFLAG_MANIFEST_NO}")
 installed_program(putty)
+#
+# Install the executable (belongs in the "binaries" component)
+#
+install(TARGETS putty
+        RUNTIME DESTINATION ${PUTTY_BIN_DESTINATION}
+        COMPONENT binaries)
+
+if(CMAKE_HOST_WIN32)
+install(FILES $<TARGET_PDB_FILE:putty>
+        DESTINATION ${PUTTY_BIN_DESTINATION} OPTIONAL
+        COMPONENT pdb)
+endif()
+
 
 add_executable(puttytel
   window.c
@@ -131,6 +156,18 @@ set_target_properties(puttytel PROPERTIES
   WIN32_EXECUTABLE ON
   LINK_FLAGS "${LFLAG_MANIFEST_NO}")
 installed_program(puttytel)
+#
+# Install the executable (belongs in the "binaries" component)
+#
+install(TARGETS putty
+        RUNTIME DESTINATION ${PUTTY_BIN_DESTINATION}
+        COMPONENT binaries)
+
+if(CMAKE_HOST_WIN32)
+install(FILES $<TARGET_PDB_FILE:putty>
+        DESTINATION ${PUTTY_BIN_DESTINATION} OPTIONAL
+        COMPONENT pdb)
+endif()
 
 add_executable(puttygen
   puttygen.c
@@ -151,6 +188,18 @@ set_target_properties(puttygen PROPERTIES
   WIN32_EXECUTABLE ON
   LINK_FLAGS "${LFLAG_MANIFEST_NO}")
 installed_program(puttygen)
+#
+# Install the executable (belongs in the "binaries" component)
+#
+install(TARGETS puttygen
+        RUNTIME DESTINATION ${PUTTY_BIN_DESTINATION}
+        COMPONENT binaries)
+
+if(CMAKE_HOST_WIN32)
+install(FILES $<TARGET_PDB_FILE:puttygen>
+        DESTINATION ${PUTTY_BIN_DESTINATION} OPTIONAL
+        COMPONENT pdb)
+endif()
 
 if(HAVE_CONPTY)
   add_executable(pterm

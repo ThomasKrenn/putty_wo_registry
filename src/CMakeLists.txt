@@ -1,7 +1,34 @@
 cmake_minimum_required(VERSION 3.7)
-project(putty LANGUAGES C)
+
+set(CMAKE_PROJECT_VERSION_MAJOR    0)
+set(CMAKE_PROJECT_VERSION_MINOR    81)
+set(CMAKE_PROJECT_VERSION_PATCH    0)
+set(CMAKE_PROJECT_VERSION_TWEAK    1)
+set(PROJECT_VERSION_DATE           "2024-06-02") 
+set(PROJECT_VERSION_YEAR           "2024")
+
+project(putty 
+   HOMEPAGE_URL "github.com/ThomasKrenn/putty_wo_registry"
+   VERSION ${CMAKE_PROJECT_VERSION_MAJOR}.${CMAKE_PROJECT_VERSION_MINOR}.${CMAKE_PROJECT_VERSION_PATCH}.${CMAKE_PROJECT_VERSION_TWEAK}
+   LANGUAGES C
+ )
 
 set(CMAKE_C_STANDARD 99)
+
+message("------------------------------------------" )
+message("CMAKE_PREFIX_PATH: ${CMAKE_PREFIX_PATH}" )
+message("CMAKE_SYSTEM_NAME: ${CMAKE_SYSTEM_NAME}" )
+message("CMAKE_SYSTEM_PROCESSOR: ${CMAKE_SYSTEM_PROCESSOR}" )
+message("------------------------------------------" )
+
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMakeBuild")
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/x64)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/x64)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/x64)
+
+set(PUTTY_BIN_DESTINATION "bin" CACHE INTERNAL "bin")
 
 include(cmake/setup.cmake)
 
@@ -123,6 +150,18 @@ target_link_libraries(plink
   utils
   ${platform_libraries})
 installed_program(plink)
+#
+# Install the executable (belongs in the "binaries" component)
+#
+install(TARGETS plink
+        RUNTIME DESTINATION ${PUTTY_BIN_DESTINATION}
+        COMPONENT binaries)
+
+if(CMAKE_HOST_WIN32)
+install(FILES $<TARGET_PDB_FILE:plink>
+        DESTINATION ${PUTTY_BIN_DESTINATION} OPTIONAL
+        COMPONENT pdb)
+endif()
 
 add_executable(pscp
   pscp.c)
@@ -131,6 +170,18 @@ target_link_libraries(pscp
   sftpclient eventloop console sshclient settings network crypto utils
   ${platform_libraries})
 installed_program(pscp)
+#
+# Install the executable (belongs in the "binaries" component)
+#
+install(TARGETS pscp
+        RUNTIME DESTINATION ${PUTTY_BIN_DESTINATION}
+        COMPONENT binaries)
+
+if(CMAKE_HOST_WIN32)
+install(FILES $<TARGET_PDB_FILE:pscp>
+        DESTINATION ${PUTTY_BIN_DESTINATION} OPTIONAL
+        COMPONENT pdb)
+endif()
 
 add_executable(psftp
   psftp.c)
@@ -139,6 +190,18 @@ target_link_libraries(psftp
   sftpclient eventloop console sshclient settings network crypto utils
   ${platform_libraries})
 installed_program(psftp)
+#
+# Install the executable (belongs in the "binaries" component)
+#
+install(TARGETS psftp
+        RUNTIME DESTINATION ${PUTTY_BIN_DESTINATION}
+        COMPONENT binaries)
+
+if(CMAKE_HOST_WIN32)
+install(FILES $<TARGET_PDB_FILE:psftp>
+        DESTINATION ${PUTTY_BIN_DESTINATION} OPTIONAL
+        COMPONENT pdb)
+endif()
 
 add_executable(psocks
   ${platform}/psocks.c
@@ -156,3 +219,6 @@ foreach(subdir ${platform} ${extra_dirs})
 endforeach()
 
 configure_file(cmake/cmake.h.in ${GENERATED_SOURCES_DIR}/cmake.h)
+
+
+include(${CMAKE_CURRENT_SOURCE_DIR}/cpack/puttyCPack.cmake)
