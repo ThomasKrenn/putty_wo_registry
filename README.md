@@ -46,9 +46,9 @@ The *putty.conf* file **must not** contain any spaces.
 
 *sessionsuffix* and *keysuffix* are optional, defaults are empty. If set, every file has a suffix as defined (saved sessions via sessionsuffix and ssh host keys via keysuffix). Primary purpose is to avoid "*.com" files from names like ssh.domain.com. Both are limited to 15 characters.
 
-Warning: if you already have saved some sessions or ssh host keys and you change these suffixes, you have to manually rename (append them to) all files.
+Warning: if you already have saved some sessions or ssh host keys and you change these suffixes, you have to manually rename all files (append the suffix to all files).
 
-Jumplist was a new feature in Windows 7 supported by PuTTY 0.61. Because this PuTTY should be lightweight, if you do not set a path to a jumplist, none will be created.
+Jumplist was a new feature in Windows 7 supported by PuTTY 0.61. This PuTTY should be lightweight, if you do not set a path to a jumplist, none will be created.
 
 When PuTTY is checking ssh host key and it's not found in file but in registry, you can move/copy key to file (or do nothing).
 
