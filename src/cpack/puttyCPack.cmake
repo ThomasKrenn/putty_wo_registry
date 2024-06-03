@@ -19,13 +19,7 @@ else()
  ## add RPM and DEB for Linux
 set(CPACK_COMPONENT_INCLUDE_TOPLEVEL_DIRECTORY ON)
 
-endif()  
-
-message("------------------------------------------" )
-message("CPACK_PACKAGE_VERSION_MAJOR: ${CPACK_PACKAGE_VERSION_MAJOR}" )
-message("CPACK_PACKAGE_VERSION_MINOR: ${CPACK_PACKAGE_VERSION_MINOR}" )
-message("CPACK_PACKAGE_VERSION_PATCH: ${CPACK_PACKAGE_VERSION_PATCH}" )
-message("------------------------------------------" )
+endif()
 
 ## 
 ## https://stackoverflow.com/questions/9613051/rename-the-output-of-cpack
@@ -65,15 +59,22 @@ cpackoptionsfirst()
 # use the new file to set the CPACK_PACKAGE_FILE_NAME
 set(CPACK_PROJECT_CONFIG_FILE ${CMAKE_BINARY_DIR}/CPackOptions.cmake)
 
-
 #
-# Install etc
+# Install 'documentation'
 #
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/../documentation/
         DESTINATION documentation
         COMPONENT binaries
-        ) 
-      
+) 
+
+#
+# Install 'putty.conf'
+#
+install(FILES ${CMAKE_SOURCE_DIR}/../config/putty.conf
+        DESTINATION bin
+        COMPONENT binaries
+)
+
 #
 # two component groups
 #
@@ -99,6 +100,14 @@ set(CPACK_TOPLEVEL_TAG "${CPACK_PACKAGE_BASE_FILE_NAME}_@PUTTY_VERSION_DATE@_${C
   set(CPACK_GENERATOR "ZIP")
 else()
   set(CPACK_GENERATOR "TGZ")
-endif()  
+endif()
 
+##
+## List of CMake scripts to execute after CPack 
+##
+set(CPACK_POST_BUILD_SCRIPTS ${CMAKE_SOURCE_DIR}/cpack/puttyPostcpack.cmake)
+
+#
+# generates a target 'package'
+#
 include(CPack)
