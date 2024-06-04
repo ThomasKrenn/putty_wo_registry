@@ -75,4 +75,4 @@ RWQQ7GxsxIJrCmP8+GS9SY3AR8ofelEUEs+s+6opq1UoW8yTHy0sPP7N
 
 Example: 
 
-minisign -Vm <release.zip> -P RWQQ7GxsxIJrCmP8+GS9SY3AR8ofelEUEs+s+6opq1UoW8yTHy0sPP7N
+    minisign -Vm <release.zip> -P RWQQ7GxsxIJrCmP8+GS9SY3AR8ofelEUEs+s+6opq1UoW8yTHy0sPP7N
