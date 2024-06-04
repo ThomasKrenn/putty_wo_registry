@@ -26,19 +26,19 @@ This PuTTY stores its configuration (sessions, ssh host keys, random seed file p
 
 ## putty.conf
 
-The path for loading and storing the configuration files can be set via file putty.conf. 
+The path for loading and storing the configuration files can be set via file *putty.conf*. 
 
 The current working directory is searched first, if putty.conf is not found in the binary directory (same directory for putty/pscp/psftp/plink/pageant.exe) is searched. 
 
 Below is an example *putty.conf'* file (if it's not found defaults are used):
 
     ;Settings
-    sessions=.\..\sessions\sessions
-    sshhostkeys=.\..\sessions\sshhostkeys
-    seedfile=.\..\sessions\putty.rnd
+    sessions=%HOMEPATH%\.putty\sessions
+    sshhostkeys=%HOMEPATH%\.putty\sshhostkeys
+    seedfile=%HOMEPATH%\.putty\putty.rnd
     sessionsuffix=.txt
     keysuffix=.hostkey
-    jumplist=.\..\sessions\jumplist.txt
+    jumplist=%HOMEPATH%\.putty\jumplist.txt
 
 You can use enviroment variables in config (like %SYSTEMROOT%) - string will be expanded via ExpandEnviromentString WinAPI function (user-specific variables are not supported yet).
 
@@ -57,3 +57,22 @@ Pageant loads a list of saved sessions from the path set in *putty.conf*, the de
 ## Changed Files
 
 The replaced files and a backup of the original files can be found in the folder 'patched_files'.
+
+## Installation
+
+This portable version of PuTTY requires on Windows the Visual Studio VC runtime dll's (Universal CRT - Platform Toolset x64 - v142). The Universal CRT is a Windows operating system component. It is a part of Windows 10 and later. For Windows versions prior to Windows 10, the Universal CRT is distributed via Windows Update.
+The installer can be downloaded from Microsoft (Windows 7, 8.1, 10 and 11): 
+
+[vc_redist](http://aka.ms/vs/17/release/vc_redist.x64.exe)
+
+## Minisign
+
+The binaries are signed with 'minisig' [minisign](https://jedisct1.github.io/minisign/).
+
+The compiled binaries can be verified with the following public key:
+
+RWQQ7GxsxIJrCmP8+GS9SY3AR8ofelEUEs+s+6opq1UoW8yTHy0sPP7N
+
+Example: 
+
+minisign -Vm <release.zip> -P RWQQ7GxsxIJrCmP8+GS9SY3AR8ofelEUEs+s+6opq1UoW8yTHy0sPP7N
