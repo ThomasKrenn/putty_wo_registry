@@ -196,7 +196,19 @@ endif()
 # executables that are 'official' enough to want to code-sign and
 # ship.
 file(WRITE ${CMAKE_BINARY_DIR}/shipped.txt "")
+
 function(installed_program target)
   file(APPEND ${CMAKE_BINARY_DIR}/shipped.txt
     "${target}${CMAKE_EXECUTABLE_SUFFIX}\n")
+
+#
+# Install the executable (belongs in the "binaries" component)
+#
+install(TARGETS ${target}
+        RUNTIME DESTINATION ${PUTTY_BIN_DESTINATION}
+        COMPONENT binaries)
+
+install(FILES $<TARGET_PDB_FILE:${target}>
+        DESTINATION ${PUTTY_BIN_DESTINATION} OPTIONAL
+        COMPONENT pdb)
 endfunction()
