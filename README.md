@@ -67,7 +67,7 @@ The installer can be downloaded from Microsoft (Windows 7, 8.1, 10 and 11):
 
 ## Minisign
 
-The binaries are signed with 'minisig' [minisign](https://jedisct1.github.io/minisign/).
+The binaries are signed with [minisign](https://jedisct1.github.io/minisign/).
 
 The compiled binaries can be verified with the following public key:
 
